@@ -11,4 +11,12 @@ function Player(posX, posY) {
 	this.circle.lineStyle(PLAYER_BORDER, PLAYER_BORDER_COLOR, 1);
 	this.circle.drawCircle(posX, posY, PLAYER_SIZE / 2);
 	this.circle.endFill();
+
+	this.velX = 0;
+	this.velY = 0;
 }
+
+Player.prototype.update = function() {
+	this.circle.x += this.velX;
+    this.circle.y += this.velY;
+};
