@@ -15,26 +15,38 @@ $(function() {
 	stage.addChild(player.circle);
 
 	$(document).keydown(function(evt) {
-		evt.preventDefault();
+		var preventDefault = true;
 
 		if (evt.which == 37) {
-			player.velX = -2;
+			player.left();
 		} else if (evt.which == 38) {
-			player.velY = -2;
+			player.up();
 		} else if (evt.which == 39) {
-			player.velX = 2;
+			player.right();
 		} else if (evt.which == 40) {
-			player.velY = 2;
+			player.down();
+		} else {
+			preventDefault = false;
+		}
+
+		if (preventDefault) {
+			evt.preventDefault();
 		}
 	});
 
 	$(document).keyup(function(evt) {
-		evt.preventDefault();
+		var preventDefault = true;
 
 		if (evt.which == 37 || evt.which == 39) {
-			player.velX = 0;
+			player.stopX();
 		} else if (evt.which == 38 || evt.which == 40) {
-			player.velY = 0;
+			player.stopY();
+		} else {
+			preventDefault = false;
+		}
+
+		if (preventDefault) {
+			evt.preventDefault();
 		}
 	});
 
