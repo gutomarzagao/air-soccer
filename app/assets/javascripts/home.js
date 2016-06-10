@@ -11,20 +11,31 @@ $(function() {
 
 	var stage = new PIXI.Container();
 
-	var player = new Player(100, 100);
-	stage.addChild(player.circle);
+	var playerRed = new Player(100, 100, RED_COLOR);
+	stage.addChild(playerRed.circle);
+
+	var playerBlue = new Player(400, 100, BLUE_COLOR);
+	stage.addChild(playerBlue.circle);
 
 	$(document).keydown(function(evt) {
 		var preventDefault = true;
 
 		if (evt.which == 37) {
-			player.left(true);
+			playerBlue.left(true);
 		} else if (evt.which == 38) {
-			player.up(true);
+			playerBlue.up(true);
 		} else if (evt.which == 39) {
-			player.right(true);
+			playerBlue.right(true);
 		} else if (evt.which == 40) {
-			player.down(true);
+			playerBlue.down(true);
+		} else if (evt.which == 65) {
+			playerRed.left(true);
+		} else if (evt.which == 68) {
+			playerRed.right(true);
+		} else if (evt.which == 83) {
+			playerRed.down(true);
+		} else if (evt.which == 87) {
+			playerRed.up(true);
 		} else {
 			preventDefault = false;
 		}
@@ -38,13 +49,21 @@ $(function() {
 		var preventDefault = true;
 
 		if (evt.which == 37) {
-			player.left(false);
+			playerBlue.left(false);
 		} else if (evt.which == 38) {
-			player.up(false);
+			playerBlue.up(false);
 		} else if (evt.which == 39) {
-			player.right(false);
+			playerBlue.right(false);
 		} else if (evt.which == 40) {
-			player.down(false);
+			playerBlue.down(false);
+		} else if (evt.which == 65) {
+			playerRed.left(false);
+		} else if (evt.which == 68) {
+			playerRed.right(false);
+		} else if (evt.which == 83) {
+			playerRed.down(false);
+		} else if (evt.which == 87) {
+			playerRed.up(false);
 		} else {
 			preventDefault = false;
 		}
@@ -59,7 +78,8 @@ $(function() {
 	function gameLoop() {
 		requestAnimationFrame(gameLoop);
 
-		player.update();
+		playerRed.update();
+		playerBlue.update();
 
 		renderer.render(stage);
 	}
