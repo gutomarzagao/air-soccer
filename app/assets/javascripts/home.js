@@ -18,13 +18,13 @@ $(function() {
 		var preventDefault = true;
 
 		if (evt.which == 37) {
-			player.left();
+			player.left(true);
 		} else if (evt.which == 38) {
-			player.up();
+			player.up(true);
 		} else if (evt.which == 39) {
-			player.right();
+			player.right(true);
 		} else if (evt.which == 40) {
-			player.down();
+			player.down(true);
 		} else {
 			preventDefault = false;
 		}
@@ -37,10 +37,14 @@ $(function() {
 	$(document).keyup(function(evt) {
 		var preventDefault = true;
 
-		if (evt.which == 37 || evt.which == 39) {
-			player.stopX();
-		} else if (evt.which == 38 || evt.which == 40) {
-			player.stopY();
+		if (evt.which == 37) {
+			player.left(false);
+		} else if (evt.which == 38) {
+			player.up(false);
+		} else if (evt.which == 39) {
+			player.right(false);
+		} else if (evt.which == 40) {
+			player.down(false);
 		} else {
 			preventDefault = false;
 		}
