@@ -12,9 +12,21 @@ Vector.prototype.add = function(vector) {
 	this.y += vector.y;
 };
 
+Vector.prototype.subtract = function(vector) {
+	this.x -= vector.x;
+	this.y -= vector.y;
+};
+
 Vector.prototype.multiply = function(value) {
 	this.x *= value;
 	this.y *= value;
+};
+
+Vector.prototype.divide = function(value) {
+	if (value != 0) {
+		this.x /= value;
+		this.y /= value;
+	}
 };
 
 Vector.prototype.min = function(vector) {
@@ -30,6 +42,10 @@ Vector.prototype.top = function(limit) {
 	if (magnitude > limit) {
 		this.scale(limit);
 	}
+};
+
+Vector.prototype.dotProduct = function(vector) {
+	return this.x * vector.x + this.y * vector.y;
 };
 
 Vector.prototype.invert = function() {

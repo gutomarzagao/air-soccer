@@ -6,7 +6,7 @@ const SIZE = 32;
 const BORDER_SIZE = 2;
 
 const ACCELERATION = 0.08;
-const SPEED = 2;
+const SPEED = 3;
 const FRICTION = 0.05;
 
 function Player(posX, posY, color) {
@@ -18,6 +18,7 @@ function Player(posX, posY, color) {
 	this.circle.x = posX;
 	this.circle.y = posY;
 
+	this.lastPosition = new Vector(posX, posY);
 	this.position = new Vector(posX, posY);
 	this.velocity = new Vector(0, 0);
 	this.acceleration = new Vector(0, 0);
@@ -27,16 +28,39 @@ function Player(posX, posY, color) {
 	this.downButton = false;
 	this.leftButton = false;
 	this.inputAcceleration = new Vector(0, 0);
+
+	this.collisionVector = new Vector(0,0);
 }
 
 Player.prototype.update = function() {
-	this.position.add(this.velocity);
+	this.acceleration = this.totalAcceleration();
+
 	this.velocity.add(this.acceleration);
 	this.velocity.top(SPEED);
-	this.acceleration = this.totalAcceleration();
+	this.velocity.subtract(this.collisionVector);
+
+	this.lastPosition = this.position.copy();
+	this.position.add(this.velocity);
 
 	this.circle.x = this.position.x;
     this.circle.y = this.position.y;
+
+    this.collisionVector = new Vector(0, 0);
+};
+
+Player.prototype.collision = function(player) {
+	var positionDiff = this.position.copy();
+	positionDiff.subtract(player.position);
+
+	var velocityDiff = this.velocity.copy();
+	velocityDiff.subtract(player.velocity);
+
+	var collisionFactor = velocityDiff.dotProduct(positionDiff) / Math.pow(positionDiff.magnitude(), 2);
+
+	this.collisionVector = positionDiff.copy();
+	this.collisionVector.multiply(collisionFactor);
+
+	this.position = this.lastPosition.copy();
 };
 
 Player.prototype.totalAcceleration = function() {

@@ -83,7 +83,19 @@ $(function() {
 		playerRed.update();
 		playerBlue.update();
 
+		if (detectCollision(playerRed, playerBlue)) {
+			playerRed.collision(playerBlue);
+			playerBlue.collision(playerRed);
+		}
+
 		renderer.render(stage);
+	}
+
+	function detectCollision(player1, player2) {
+		var positionDiff = player1.position.copy();
+		positionDiff.subtract(player2.position);
+
+		return positionDiff.magnitude() <= SIZE;
 	}
 
 	window.onresize = function (evt) {
