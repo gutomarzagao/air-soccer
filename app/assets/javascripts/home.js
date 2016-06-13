@@ -3,18 +3,20 @@
 const FIELD_COLOR = 0x718C5A;
 
 $(function() {
-	var renderer = PIXI.autoDetectRenderer(window.innerWidth, window.innerHeight);
+	var width = window.innerWidth;
+	var height = window.innerHeight;
+
+	var renderer = PIXI.autoDetectRenderer(width, height);
 	renderer.backgroundColor = FIELD_COLOR;
-	renderer.autoResize = true;
 
 	document.body.appendChild(renderer.view);
 
 	var stage = new PIXI.Container();
 
-	var playerRed = new Player(100, 100, RED_COLOR);
+	var playerRed = new Player(width / 4, height / 2, RED_COLOR);
 	stage.addChild(playerRed.circle);
 
-	var playerBlue = new Player(400, 100, BLUE_COLOR);
+	var playerBlue = new Player(3 * width / 4, height / 2, BLUE_COLOR);
 	stage.addChild(playerBlue.circle);
 
 	$(document).keydown(function(evt) {
@@ -82,5 +84,15 @@ $(function() {
 		playerBlue.update();
 
 		renderer.render(stage);
+	}
+
+	window.onresize = function (evt) {
+		var width = window.innerWidth;
+		var height = window.innerHeight;
+
+		renderer.view.style.width = width + "px";
+		renderer.view.style.height = height + "px";
+
+		renderer.resize(width, height);
 	}
 });

@@ -12,9 +12,11 @@ const FRICTION = 0.05;
 function Player(posX, posY, color) {
 	this.circle = new PIXI.Graphics();
 	this.circle.beginFill(color);
-	this.circle.lineStyle(BORDER_SIZE, BORDER_SIZE, 1);
-	this.circle.drawCircle(posX, posY, SIZE / 2);
+	this.circle.lineStyle(BORDER_SIZE, BORDER_COLOR, 1);
+	this.circle.drawCircle(0, 0, (SIZE - BORDER_SIZE) / 2);
 	this.circle.endFill();
+	this.circle.x = posX;
+	this.circle.y = posY;
 
 	this.position = new Vector(posX, posY);
 	this.velocity = new Vector(0, 0);
